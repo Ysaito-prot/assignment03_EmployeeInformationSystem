@@ -6,7 +6,17 @@
         <div id="app">
             <h2>現在押されているタブは{{ sort_key }}</h2>
             <h2>{{ sort_key }}: {{ sort_asc ? '昇順' : '降順'}}</h2>
-            <table id="table" border="1">
+            <select name="example1" v-model="Order">
+                <option value="id">ID</option>
+                <option value="name">名前</option>
+                <option value="company">会社名</option>
+                <option value="division">部署</option>
+                <option value="title">役職</option>
+            </select>
+            <input type="text" v-model="keyword">
+            <button v-on:click="isSearch">検索</button>
+
+                <table id="table" border="1">
                 <thead>
                     <tr>
                         <th @click="sortBy('id')">ID</th>

@@ -5,6 +5,8 @@ Vue.createApp({
       items: [],
       sort_key: "",
       sort_asc: true,
+      keyword: "",
+      Order: "",
     };
   },
   // ライフサイクルハック
@@ -19,6 +21,29 @@ Vue.createApp({
         ? (this.sort_asc = !this.sort_asc)
         : (this.sort_asc = true);
       this.sort_key = key;
+    },
+    //検索実行
+    isSearch: function () {
+      var items = [];
+
+      for (var i in this.items) {
+        var item1 = this.items[i];
+
+        if (item1.name.indexOf(this.keyword) !== -1 && this.Order == "name") {
+          items.push(item1);
+        }
+        if (item1.company.indexOf(this.keyword) !== -1 && this.Order == "company") {
+          items.push(item1);
+        }
+        if (item1.division.indexOf(this.keyword) !== -1 && this.Order == "division") {
+          items.push(item1);
+        }
+        if (item1.title.indexOf(this.keyword) !== -1 && this.Order == "title") {
+          items.push(item1);
+        }
+      }
+
+      return this.items = items;
     },
   },
   computed: {
@@ -37,12 +62,12 @@ Vue.createApp({
         // ID以外の並び替え（日本語）
         if (this.sort_asc === true) {
           this.items.sort((a, b) => {
-            return a[this.sort_key].localeCompare(b[this.sort_key], 'ja');
+            return a[this.sort_key].localeCompare(b[this.sort_key], "ja");
           });
         }
         if (this.sort_asc === false) {
           this.items.sort((a, b) => {
-            return b[this.sort_key].localeCompare(a[this.sort_key], 'ja');
+            return b[this.sort_key].localeCompare(a[this.sort_key], "ja");
           });
         }
         return this.items;
