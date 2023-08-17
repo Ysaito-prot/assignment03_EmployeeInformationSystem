@@ -6,6 +6,7 @@
         <div id="app">
             <!-- <h2 id="test">現在押されているタブは{{ sort_key }}</h2> -->
             <!-- <h2>{{ sort_key }}: {{ sort_asc ? '昇順' : '降順'}}</h2> -->
+            <h2>キーワード検索</h2>
             <select name="example1" v-model="Order">
                 <option value="id">ID</option>
                 <option value="name">名前</option>
@@ -15,6 +16,33 @@
             </select>
             <input type="text" v-model="keyword">
             <button v-on:click="isSearch">検索</button>
+
+            <h2>新規作成</h2>
+                    <!-- エラーメッセージを追加 -->
+                    <p class="error-name">{{message1}}</p>
+                    <p class="error-name">{{message2}}</p>
+                    <p class="error-name">{{message3}}</p>
+                    <p class="error-name">{{message4}}</p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>名前</th>
+                                <th>会社名</th>
+                                <th>部署</th>
+                                <th>役職</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="createRows" border="1">
+                                <td><input v-model="additems.name"></td>
+                                <td><input v-model="additems.company"></td>
+                                <td><input v-model="additems.division"></td>
+                                <td><input v-model="additems.title"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button  type="submit" v-on:click="add">追加</button>
 
                 <table id="table" border="1">
                 <thead>
@@ -69,6 +97,10 @@
 
             td:nth-of-type(1) {
                 text-align: right;
+            }
+            .error-name {
+                color: red;
+                font-weight: bold;
             }
         </style>
     </body>

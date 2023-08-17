@@ -8,6 +8,19 @@ Vue.createApp({
       sort_asc: true,
       keyword: "",
       Order: "",
+      additems: [
+        {
+          id: '', 
+          name: '', 
+          company: '', 
+          division: '', 
+          title: ''
+        }
+      ],
+      message1:'',
+      message2:'',
+      message3:'',
+      message4:''
     };
   },
   // ライフサイクルハック
@@ -55,6 +68,56 @@ Vue.createApp({
       return this.items2 = serchItems;
 
     },
+    add: function () {
+      // バリデーションチェック
+      // 会社名のバリデーションチェック
+      const company2 = /株式会社/;
+      if (company2.test(this.additems.company) === false) {
+        this.message2 = "会社名：「株式会社」を入れて入力してください";
+      } else {
+        this.message2 = "";
+      }
+      // 名前のバリデーションチェック
+      const reg = new RegExp(/^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+$/);
+            //指定した組み合わせになっていなかった場合判定を返す。
+      if (reg.test(this.additems.name) === false) {
+        this.message1 = "名前：日本語で入力してください";
+      } else {
+        this.message1 = "";
+      }
+      // 部署名のバリデーションチェック
+      const division2 = /部/;
+      if (division2.test(this.additems.division) === false) {
+        this.message3 = "部署：「○○部」の形で入力してください";
+      } else {
+        this.message3 = "";
+      }
+      // 役職のバリデーションチェック
+      if (this.additems.title !== "主任" && this.additems.title !== "部長" && this.additems.title !== "課長" && this.additems.title !== "係長" && this.additems.title !== ""){
+        this.message4 = "役職：「主任」「部長」「課長」「係長」のいずれかを入力してください(未入力可)";
+      } else {
+        this.message4 = "";
+      }
+
+
+
+      if (this.message1 === "" && this.message2 === "" && this.message3 === "" && this.message4 === "") {
+        // バリデーションチェックをクリアしたら下実行
+      this.items.push({
+          "id": this.items[this.items.length - 1].id + 1,
+          "name": this.additems.name,
+          "company": this.additems.company,
+          "division": this.additems.division,
+          "title": this.additems.title
+        });
+        // 追加ボタン押下後入力フォームリセット
+        this.additems.name = "";
+        this.additems.company = "";
+        this.additems.division = "";
+        this.additems.title = "";
+        this.message = "";
+      }
+  },
   },
   computed: {
     sort_items() {
