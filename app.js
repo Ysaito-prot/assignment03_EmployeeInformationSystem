@@ -48,9 +48,9 @@ Vue.createApp({
         if (item1.title.indexOf(this.keyword) !== -1 && this.Order == "title") {
           serchItems.push(item1);
         }
-        if (this.keyword === "") {
-          serchItems.push(item1);
-        }
+        // if (this.keyword === "") {
+        //   serchItems.push(item1);
+        // }
       }
       return this.items2 = serchItems;
 
